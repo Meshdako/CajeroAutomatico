@@ -1,12 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "Libreria/operaciones.h"
+#include "Libreria/cuentas.h"
 
 //Funciones
-void MenuCajero()
+int IniciarSesion(Cuenta Aux)
+{
+    char name[50], pass[50];
+
+    printf("\nIngresa tu nombre de usuario: ");
+    scanf("%s", name);
+    printf("\nIngresa tu contraseña de usuario: ");
+    scanf("%s", pass);
+
+    if(strcmp(name, Aux.username) == 0){
+        if(strcmp(pass, Aux.password) == 0){
+            return 0;
+        }
+        else{
+            printf("\nContraseña incorrecta.");
+            return 2;
+        }
+    }
+    else{
+        return 1;
+    }
+}
+
+void MenuCajero(Cuenta Aux)
 {
     int OP;
     do{
-        printf("\n\tBienvenido");
+        system("clear");
+
+        printf("\n\tBienvenido %s", Aux.username);
         printf("\nPor favor, eliga una de las siguientes opciones:");
         printf("\n1. Ver saldo.");
         printf("\n2. Sacar dinero.");
@@ -17,6 +45,10 @@ void MenuCajero()
         scanf("%i", &OP);
 
         switch (OP){
+            case 0:
+                system("clear"); 
+                printf("\n\tGracias por preferirnos.");
+                break;
             case 1:
                 printf("\nEstamos trabajando para usted.");
                 break;
@@ -34,12 +66,18 @@ void MenuCajero()
                 break;
         }
     }while(OP != 0);
-    printf("\n\tGracias por preferirnos.");
 }
-
 
 //Función principal
 int main()
 {
-    MenuCajero();
+    int R = IniciarSesion(CuentAdmin);
+
+    if(R == 0)
+        MenuCajero(CuentAdmin);
+    else{
+        if(R == 1)
+            printf("\nEl usuario no existe.");
+    }
+        
 }
