@@ -30,7 +30,7 @@ int IniciarSesion(Cuenta Aux)
 
 void MenuCajero(Cuenta Aux)
 {
-    int OP;
+    int OP, R;
     do{
         system("clear");
 
@@ -50,16 +50,25 @@ void MenuCajero(Cuenta Aux)
                 printf("\n\tGracias por preferirnos.");
                 break;
             case 1:
-                printf("\nEstamos trabajando para usted.");
+                do{
+                    system("clear");
+                    R = VerSaldo(Aux.saldo);
+                }while(R != 0);
                 break;
             case 2:
-                printf("\nEstamos trabajando para usted.");
+                do{
+                    system("clear");
+                    R = SacarDinero(&Aux.saldo);
+                }while(R != 0);
                 break;
             case 3:
                 printf("\nEstamos trabajando para usted.");
                 break;
             case 4:
-                printf("\nEstamos trabajando para usted.");
+                do{
+                    system("clear");
+                    R = IngresarDinero(&Aux.saldo);
+                }while(R != 0);
                 break;
             default:
                 printf("\nIngrese una opción válida.");
@@ -79,5 +88,6 @@ int main()
         if(R == 1)
             printf("\nEl usuario no existe.");
     }
-        
+
+    return 0;
 }
